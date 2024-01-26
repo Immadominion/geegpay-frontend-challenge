@@ -1,0 +1,48 @@
+name: geegpay_afrique
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_screenutil: ^5.9.0
+  riverpod: ^2.4.9
+  intl: ^0.19.0
+  scrollable_positioned_list: ^0.3.8
+  auto_size_text: ^3.0.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/images/
+
+  fonts:
+    - family: Plus Jakarta Sans 
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans-Italic-VariableFont_wght.ttf
+        - asset: assets/fonts/PlusJakartaSans-VariableFont_wght.ttf
+          weight: 700
+
+
