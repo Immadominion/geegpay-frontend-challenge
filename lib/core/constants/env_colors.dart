@@ -28,6 +28,9 @@ class GeegyColors {
   static Color orangeColor = const Color.fromARGB(255, 255, 183, 74);
   static Color purpColor = const Color.fromARGB(255, 255, 74, 85);
   static Color whiteColor = const Color.fromARGB(255, 255, 255, 255);
+  static Color greyColor = const Color.fromARGB(255, 236, 235, 235);
+  static Color darkGreyColor = const Color.fromARGB(255, 175, 175, 175);
+  static Color darkColor = const Color.fromARGB(255, 0, 0, 0);
   //static final int _errorColorValue = '#FF1F7D'.toColor();
   // static int _warningColorValue = '#F5BF3D'.toColor();
   // static int _successColorValue = '#00AC56'.toColor();
