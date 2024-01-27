@@ -19,6 +19,7 @@ class GeegyColors {
 
   static Color appBackgroundColor = '#FAFAFA'.toColor();
   static Color primaryColor = const Color.fromARGB(255, 8, 212, 137);
+  static Color primaryColorTransp = const Color.fromARGB(255, 163, 255, 221);
   static Color secondaryColor = '#3A3F51'.toColor();
   static Color successColor = '#00AC56'.toColor();
   static Color warningColor = '#F5BF3D'.toColor();
@@ -38,10 +39,11 @@ class GeegyColors {
   // static int _secondaryColorValue = '#3A3F51'.toColor();
   static List<Color> containerGradient = [
     primaryColor,
-    successColor,
-    primaryColor.withOpacity(0.5),
-    primaryColor.withOpacity(0.3),
-    primaryColor.withOpacity(0.1),
+    //successColor,
+    // primaryColor.withOpacity(0.5),
+    // primaryColor.withOpacity(0.3),
+    primaryColorTransp,
+    // primaryColor.withOpacity(0.1),
     appBackgroundColor.withOpacity(0.5),
   ];
 }
