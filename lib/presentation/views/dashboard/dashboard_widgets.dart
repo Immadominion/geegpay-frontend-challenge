@@ -115,3 +115,23 @@ class _DashboardSignoutState extends State<DashboardSignout> {
     );
   }
 }
+
+class TabIndicator extends StatelessWidget {
+  const TabIndicator({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 25.h,
+      width: 3.w,
+      decoration: BoxDecoration(
+          color: GeegyColors.darkColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(5.r),
+            bottomLeft: Radius.circular(5.r),
+          )),
+    );
+  }
+}

@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geegpay_afrique/core/constants/env_assets.dart';
 import 'package:geegpay_afrique/core/constants/env_colors.dart';
+import 'package:geegpay_afrique/core/constants/env_strings.dart';
+import 'package:geegpay_afrique/core/constants/format_cash.dart';
 import 'package:geegpay_afrique/core/extensions/widget_extension.dart';
+import 'package:geegpay_afrique/presentation/views/dashboard/dash_mini_container_section.dart';
 import 'package:geegpay_afrique/presentation/views/dashboard/dash_search_widget.dart';
+import 'package:geegpay_afrique/presentation/views/dashboard/dash_top_platform_widget.dart';
 import 'package:geegpay_afrique/presentation/views/dashboard/dashboard_widgets.dart';
+import 'package:geegpay_afrique/presentation/views/dashboard/side_menu.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import 'image_switcher.dart';
+import 'dashboard_lists_repo.dart';
+import 'last_order_body.dart';
+import 'last_order_heading.dart';
 
 class GeegyDashBoard extends StatefulWidget {
   const GeegyDashBoard({super.key});
@@ -32,11 +39,6 @@ class _GeegyDashBoardState extends State<GeegyDashBoard> {
   ];
   var menuIndex = 0;
 
-  final screensList = const <Widget>[
-    Placeholder(),
-    Placeholder(),
-  ];
-
   Future scrollTo({required int index}) async {
     itemScrollController
         .scrollTo(
@@ -51,12 +53,8 @@ class _GeegyDashBoardState extends State<GeegyDashBoard> {
   }
 
   bool removeSpan = false;
-  String _activeImage = '';
-  @override
-  void initState() {
-    _activeImage = 'menu';
-    super.initState();
-  }
+  bool seeAllLastOrders = false;
+  bool seeAllPlatforms = false;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +65,7 @@ class _GeegyDashBoardState extends State<GeegyDashBoard> {
       removeSpan = true;
     }
     return Scaffold(
+      backgroundColor: GeegyColors.greyColor,
       body: Row(
         children: [
           Expanded(
@@ -76,260 +75,7 @@ class _GeegyDashBoardState extends State<GeegyDashBoard> {
                 if (removeSpan) {
                   return const SizedBox();
                 } else {
-                  return Container(
-                    // padding: EdgeInsets.only(
-                    //   left: 10.w,
-                    // ),
-                    decoration: BoxDecoration(
-                      color: GeegyColors.appBackgroundColor,
-                      border: Border(
-                        right: BorderSide(
-                          width: 1.sp,
-                          color: GeegyColors.darkGreyColor,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          // margin: EdgeInsets.only(top: 10.h),
-                          child: Image.asset(
-                            EnvAssets.getIconPath('thumbnail'),
-                          ).afmPadding(
-                            EdgeInsets.all(15.sp),
-                          ),
-                        ),
-                        Flexible(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _activeImage = 'menu';
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  EnvAssets.getIconPath('menu'),
-                                  color: _activeImage == 'menu'
-                                      ? null
-                                      : GeegyColors.darkGreyColor,
-                                ).afmPadding(
-                                  EdgeInsets.all(6.sp),
-                                ),
-                                const Spacer(),
-                                _activeImage == 'menu'
-                                    ? const TabIndicator()
-                                    : const SizedBox()
-                              ],
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _activeImage = 'analysis';
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  EnvAssets.getIconPath('analysis'),
-                                  color: _activeImage == 'analysis'
-                                      ? null
-                                      : GeegyColors.darkGreyColor,
-                                ).afmPadding(
-                                  EdgeInsets.all(6.sp),
-                                ),
-                                _activeImage == 'analysis'
-                                    ? const TabIndicator()
-                                    : const SizedBox()
-                              ],
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _activeImage = 'user';
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  EnvAssets.getIconPath('user'),
-                                  color: _activeImage == 'user'
-                                      ? null
-                                      : GeegyColors.darkGreyColor,
-                                ).afmPadding(
-                                  EdgeInsets.all(15.sp),
-                                ),
-                                _activeImage == 'user'
-                                    ? const TabIndicator()
-                                    : const SizedBox()
-                              ],
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _activeImage = 'box';
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  EnvAssets.getIconPath('box'),
-                                  color: _activeImage == 'box'
-                                      ? null
-                                      : GeegyColors.darkGreyColor,
-                                ).afmPadding(
-                                  EdgeInsets.all(6.sp),
-                                ),
-                                _activeImage == 'box'
-                                    ? const TabIndicator()
-                                    : const SizedBox()
-                              ],
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _activeImage = 'percentages';
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  EnvAssets.getIconPath('percentages'),
-                                  color: _activeImage == 'percentages'
-                                      ? null
-                                      : GeegyColors.darkGreyColor,
-                                ).afmPadding(
-                                  EdgeInsets.all(6.sp),
-                                ),
-                                _activeImage == 'percentages'
-                                    ? const TabIndicator()
-                                    : const SizedBox()
-                              ],
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _activeImage = 'notification';
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  EnvAssets.getIconPath('notification'),
-                                  color: _activeImage == 'notification'
-                                      ? null
-                                      : GeegyColors.darkGreyColor,
-                                ).afmPadding(
-                                  EdgeInsets.all(6.sp),
-                                ),
-                                _activeImage == 'notification'
-                                    ? const TabIndicator()
-                                    : const SizedBox()
-                              ],
-                            ),
-                          ),
-                        ),
-                        const ImageSwitcher(),
-                        const Spacer(),
-                        Flexible(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _activeImage = 'arrow-right';
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  EnvAssets.getIconPath('arrow-right'),
-                                  color: _activeImage == 'arrow-right'
-                                      ? null
-                                      : GeegyColors.darkGreyColor,
-                                ).afmPadding(
-                                  EdgeInsets.all(13.sp),
-                                ),
-                                _activeImage == 'arrow-right'
-                                    ? const TabIndicator()
-                                    : const SizedBox()
-                              ],
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _activeImage = 'settings';
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  EnvAssets.getIconPath('settings'),
-                                  color: _activeImage == 'settings'
-                                      ? null
-                                      : GeegyColors.darkGreyColor,
-                                ).afmPadding(
-                                  EdgeInsets.all(5.sp),
-                                ),
-                                _activeImage == 'settings'
-                                    ? const TabIndicator()
-                                    : const SizedBox()
-                              ],
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _activeImage = 'logout';
-                                  });
-                                },
-                                child: Image.asset(
-                                  EnvAssets.getIconPath('logout'),
-                                  color: _activeImage == 'logout'
-                                      ? GeegyColors.darkColor
-                                      : GeegyColors.darkGreyColor,
-                                ).afmPadding(
-                                  EdgeInsets.all(5.sp),
-                                ),
-                              ),
-                              _activeImage == 'logout'
-                                  ? const TabIndicator()
-                                  : const SizedBox()
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  return const SideBarDesktop();
                 }
               },
             ),
@@ -339,7 +85,7 @@ class _GeegyDashBoardState extends State<GeegyDashBoard> {
             child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
-                backgroundColor: GeegyColors.appBackgroundColor,
+                backgroundColor: Colors.transparent,
                 toolbarHeight: 130.h,
                 titleSpacing: 50.w,
                 elevation: 0,
@@ -426,41 +172,334 @@ class _GeegyDashBoardState extends State<GeegyDashBoard> {
                   },
                 ),
               ),
-              body: const SizedBox(),
+              body: Column(
+                children: [
+                  Divider(
+                    height: 0.5,
+                    thickness: 0.5,
+                    color: GeegyColors.darkGreyColor,
+                    // endIndent: 10.sp,
+                    //indent: 10.sp,
+                  ),
+                  removeSpan
+                      ? const SizedBox()
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 375.h,
+                                  width: 730.w,
+                                  decoration: BoxDecoration(
+                                    color: GeegyColors.whiteColor,
+                                  ),
+                                ).afmBorderRadius(
+                                  BorderRadius.circular(
+                                    20.r,
+                                  ),
+                                ),
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        MiniContainer(),
+                                        SizedBox(
+                                          width: 15.w,
+                                        ),
+                                        Container(
+                                          height: 175.h,
+                                          width: 280.w,
+                                          decoration: BoxDecoration(
+                                            color: GeegyColors.whiteColor,
+                                          ),
+                                        ).afmBorderRadius(
+                                          BorderRadius.circular(
+                                            20.r,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+
+                                    ///Second row below the first row of two containers
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 175.h,
+                                          width: 280.w,
+                                          decoration: BoxDecoration(
+                                            color: GeegyColors.whiteColor,
+                                          ),
+                                        ).afmBorderRadius(
+                                          BorderRadius.circular(
+                                            20.r,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 15.w,
+                                        ),
+                                        Container(
+                                          height: 175.h,
+                                          width: 280.w,
+                                          decoration: BoxDecoration(
+                                            color: GeegyColors.whiteColor,
+                                          ),
+                                        ).afmBorderRadius(
+                                          BorderRadius.circular(
+                                            20.r,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ///This is the last orders container
+                                Container(
+                                  height: 375.h,
+                                  width: 730.w,
+                                  padding: EdgeInsets.all(20.sp),
+                                  decoration: BoxDecoration(
+                                    color: GeegyColors.whiteColor,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            GeegyStrings.lastOrd,
+                                            style: TextStyle(
+                                              fontFamily: 'Plus Jakarta Sans',
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.sp,
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                seeAllLastOrders =
+                                                    !seeAllLastOrders;
+                                              });
+                                            },
+                                            child: seeAllLastOrders
+                                                ? Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.close,
+                                                        size: 15.sp,
+                                                      ).afmPadding(
+                                                        EdgeInsets.only(
+                                                            right: 5.w),
+                                                      ),
+                                                      Text(
+                                                        GeegyStrings.clAll,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 15.sp,
+                                                          color: GeegyColors
+                                                              .warningColor,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Text(
+                                                    GeegyStrings.seeAll,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Plus Jakarta Sans',
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 15.sp,
+                                                      color: GeegyColors
+                                                          .primaryColor,
+                                                    ),
+                                                  ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      const LastOrderHeading(),
+                                      SizedBox(
+                                        width: double.maxFinite,
+                                        height: 250.h,
+                                        child: ListView.builder(
+                                          itemCount: seeAllLastOrders ? 11 : 3,
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                                LastOrderBodyListView(
+                                                  imgAsset: imgList[index],
+                                                  name: nameList[index],
+                                                  amt: amtList[index],
+                                                  status: statList[index],
+                                                ),
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                                Divider(
+                                                  thickness: 0.5.h,
+                                                  height: 1.h,
+                                                  color:
+                                                      GeegyColors.darkGreyColor,
+                                                  endIndent: 10.w,
+                                                  indent: 10.w,
+                                                ),
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ).afmBorderRadius(
+                                  BorderRadius.circular(
+                                    20.r,
+                                  ),
+                                ),
+
+                                ///This is the container that contains top platforms
+                                Container(
+                                  height: 375.h,
+                                  width: 575.w,
+                                  padding: EdgeInsets.all(20.sp),
+                                  decoration: BoxDecoration(
+                                    color: GeegyColors.whiteColor,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            GeegyStrings.topPlat,
+                                            style: TextStyle(
+                                              fontFamily: 'Plus Jakarta Sans',
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.sp,
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                seeAllPlatforms =
+                                                    !seeAllPlatforms;
+                                              });
+                                            },
+                                            child: seeAllPlatforms
+                                                ? Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.close,
+                                                        size: 15.sp,
+                                                      ).afmPadding(
+                                                        EdgeInsets.only(
+                                                            right: 5.w),
+                                                      ),
+                                                      Text(
+                                                        GeegyStrings.clAll,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 15.sp,
+                                                          color: GeegyColors
+                                                              .warningColor,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Text(
+                                                    GeegyStrings.seeAll,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Plus Jakarta Sans',
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 15.sp,
+                                                      color: GeegyColors
+                                                          .primaryColor,
+                                                    ),
+                                                  ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      SizedBox(
+                                        width: double.maxFinite,
+                                        height: 250.h,
+                                        child: ListView.builder(
+                                          itemCount: seeAllPlatforms ? 11 : 3,
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              children: [
+                                                TopPlatformWidget(
+                                                    platformName:
+                                                        platformNameList[index],
+                                                    price: formatDollarBalance(
+                                                      platformPriceList[index],
+                                                      noShowNaira: false,
+                                                    ),
+                                                    percent:
+                                                        platformPercentageDoubles[
+                                                            index],
+                                                    color: platformColor[index],
+                                                    percentStringLiteral:
+                                                        "+${platformStringLiteral[index]}%"),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ).afmBorderRadius(
+                                  BorderRadius.circular(
+                                    20.r,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ).afmPadding(
+                          EdgeInsets.all(20.sp),
+                        ),
+                ],
+              ),
             ),
           ),
         ],
       ),
-    );
-  }
-
-  AnimatedContainer buildNavBarAnimatedContainer(int index, bool hover) {
-    return AnimatedContainer(
-      alignment: Alignment.center,
-      width: hover ? 80 : 75,
-      duration: const Duration(milliseconds: 200),
-      transform: hover ? onMenuHover : null,
-      child: menuItems[index],
-    );
-  }
-}
-
-class TabIndicator extends StatelessWidget {
-  const TabIndicator({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 25.h,
-      width: 3.w,
-      decoration: BoxDecoration(
-          color: GeegyColors.darkColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(5.r),
-            bottomLeft: Radius.circular(5.r),
-          )),
     );
   }
 }

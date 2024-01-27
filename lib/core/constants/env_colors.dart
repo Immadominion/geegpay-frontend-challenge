@@ -18,7 +18,7 @@ class GeegyColors {
   // static final ProviderContainer container = ProviderContainer();
 
   static Color appBackgroundColor = '#FAFAFA'.toColor();
-  static Color primaryColor = '#BB372F'.toColor();
+  static Color primaryColor = const Color.fromARGB(255, 8, 212, 137);
   static Color secondaryColor = '#3A3F51'.toColor();
   static Color successColor = '#00AC56'.toColor();
   static Color warningColor = '#F5BF3D'.toColor();
@@ -29,7 +29,7 @@ class GeegyColors {
   static Color purpColor = const Color.fromARGB(255, 255, 74, 85);
   static Color whiteColor = const Color.fromARGB(255, 255, 255, 255);
   static Color greyColor = const Color.fromARGB(255, 236, 235, 235);
-  static Color darkGreyColor = const Color.fromARGB(255, 175, 175, 175);
+  static Color darkGreyColor = const Color.fromARGB(255, 158, 158, 158);
   static Color darkColor = const Color.fromARGB(255, 0, 0, 0);
   //static final int _errorColorValue = '#FF1F7D'.toColor();
   // static int _warningColorValue = '#F5BF3D'.toColor();

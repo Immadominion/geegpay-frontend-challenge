@@ -48,6 +48,11 @@ class GeegyStrings {
   static const String four = '40.000';
   static const String fif = '50.000';
 
+  ///Top platform strings
+  static const String twopointFaif = '25000000';
+  static const String onePointeight = '18000000';
+  static const String onePointTwo = '12000000';
+
   ///Generic set of Strings as set by the user based on their type of purchase by the Fintech Solution
   static const String generic1 = 'Book Bazaar';
   static const String generic2 = 'Artisan Aisle';
@@ -61,6 +66,7 @@ class GeegyStrings {
 
   ///Other texts
   static const String seeAll = 'See all';
+  static const String clAll = 'See less';
   static const String pd = 'Paid';
   static const String rfd = 'Refund';
   static const String search = 'Search...';

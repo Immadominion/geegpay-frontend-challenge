@@ -24,7 +24,7 @@ class ImageSwitcherState extends State<ImageSwitcher> {
   Widget build(BuildContext context) {
     return Container(
       height: 110.sp,
-      margin: EdgeInsets.all(5.sp),
+      margin: EdgeInsets.all(10.sp),
       padding: EdgeInsets.all(8.sp),
       decoration: BoxDecoration(
         color: GeegyColors.whiteColor,
